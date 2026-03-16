@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Next Fight XP — Prototype</title>
+<meta name="description" content="Next Fight XP — La première marketplace de coaching à la compétition pour combattants MMA et JJB">
+<meta name="theme-color" content="#0A0A0A">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥊</text></svg>">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;background:#111;font-family:-apple-system,'Segoe UI',Arial,sans-serif;overflow:hidden}
+.app-wrap{display:flex;justify-content:center;align-items:center;height:100dvh;padding:12px}
+.phone{width:375px;max-width:100vw;height:min(812px,100dvh - 24px);border-radius:40px;border:3px solid #333;background:#0A0A0A;overflow:hidden;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+@media(max-width:400px){.phone{border-radius:0;border:none;height:100dvh;max-width:100vw}}
+.notch{width:120px;height:28px;background:#0A0A0A;border-radius:0 0 16px 16px;margin:0 auto;position:relative;z-index:20}
+.screen{height:calc(100% - 28px - 56px);overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+.screen::-webkit-scrollbar{display:none}
+.statusbar{height:0;padding:0}
+.navbar{position:absolute;bottom:0;left:0;right:0;height:56px;background:#111;border-top:1px solid #222;display:flex;align-items:center;justify-content:space-around;z-index:10}
+.nav-item{text-align:center;cursor:pointer;padding:4px 12px;-webkit-tap-highlight-color:transparent}
+.nav-item .icon{font-size:20px;color:#666}
+.nav-item .label{font-size:9px;color:#666}
+.nav-item.active .icon,.nav-item.active .label{color:#B71C1C}
+.section-title{font-size:11px;font-weight:900;color:#B71C1C;padding:12px 14px 4px;letter-spacing:1px;text-transform:uppercase}
+.card{background:#1A1A1A;border-radius:12px;margin:4px 12px;padding:12px}
+.stat-row{display:flex;gap:6px;margin:6px 12px}
+.stat-box{flex:1;background:#1A1A1A;border-radius:8px;padding:8px 4px;text-align:center}
+.stat-num{font-size:18px;font-weight:900;color:#B71C1C}
+.stat-label{font-size:9px;color:#888}
+.badge{display:inline-block;padding:3px 8px;border-radius:4px;font-size:10px;font-weight:700;margin-right:4px}
+.tag{font-size:9px;padding:2px 6px;border-radius:3px;font-weight:700;margin-right:3px;display:inline-block}
+.tag-gi{background:#1A3A1A;color:#4CAF50}
+.tag-nogi{background:#3A1A1A;color:#B71C1C}
+.tag-kids{background:#1A2A3A;color:#42A5F5}
+.tag-mma{background:#2A1A1A;color:#EF5350}
+.tag-grappling{background:#2A1A2A;color:#AB47BC}
+.comp-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #222;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.comp-date{width:44px;text-align:center;flex-shrink:0}
+.comp-day{font-size:18px;font-weight:900;color:#fff}
+.comp-month{font-size:9px;color:#B71C1C;font-weight:900}
+.comp-name{font-weight:700;color:#eee;font-size:12px}
+.comp-loc{font-size:10px;color:#888}
+.avatar{border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0}
+.filter-pill{padding:4px 10px;border-radius:20px;font-size:10px;cursor:pointer;-webkit-tap-highlight-color:transparent;display:inline-block;margin-right:4px;margin-bottom:4px}
+.filter-pill.active{background:#B71C1C;color:#fff;font-weight:700}
+.filter-pill.inactive{background:#1A1A1A;color:#888}
+.btn-primary{background:#B71C1C;color:#fff;border-radius:10px;padding:14px;text-align:center;font-weight:900;font-size:15px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.btn-gold{background:#C9A832;color:#0A0A0A;border-radius:10px;padding:14px;text-align:center;font-weight:900;font-size:15px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.back-link{font-size:12px;color:#B71C1C;cursor:pointer;font-weight:700;padding:4px 14px;-webkit-tap-highlight-color:transparent}
+.coach-card{background:#1A1A1A;border-radius:10px;padding:12px;margin-bottom:8px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.detail-row{display:flex;justify-content:space-between;margin-bottom:6px;font-size:11px}
+.detail-label{color:#888}
+.detail-value{color:#fff}
+.result-row{display:flex;justify-content:space-between;padding:5px 0;font-size:11px}
+.gradient-red{background:linear-gradient(135deg,#B71C1C,#7F0000)}
+.gradient-gold{background:linear-gradient(135deg,#C9A832,#8B7525)}
+.profile-header{position:relative;height:70px}
+.profile-avatar{width:56px;height:56px;border-radius:50%;background:#222;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;position:absolute;bottom:-24px;left:50%;transform:translateX(-50%)}
+.spacer{height:20px}
+.search-input{width:100%;background:#222;border:none;border-radius:8px;padding:10px 12px;color:#fff;font-size:12px;margin-top:8px;outline:none}
+</style>
+</head>
+<body>
+<div class="app-wrap">
+<div class="phone">
+<div class="notch"></div>
+<div class="screen" id="screen"></div>
+<div class="navbar">
+<div class="nav-item" data-nav="home" onclick="navigate('home')"><div class="icon">⌂</div><div class="label">Accueil</div></div>
+<div class="nav-item" data-nav="competitions" onclick="navigate('competitions')"><div class="icon">📅</div><div class="label">Compétitions</div></div>
+<div class="nav-item" data-nav="profile" onclick="navigate('profile')"><div class="icon">👤</div><div class="label">Profil</div></div>
+<div class="nav-item" data-nav="coaches" onclick="navigate('coaches')"><div class="icon">👥</div><div class="label">Coachs</div></div>
+</div>
+</div>
+</div>
+
+<script>
+const COACHES=[
+{id:1,name:"Carlos Tavares",ini:"CT",city:"Toulouse",belt:"Noire",rating:4.9,sessions:87,fighters:23,winRate:71,specs:["JJB GI","JJB NO GI","Grappling"],approach:"Stratégique · Jeu de passage",available:true},
+{id:2,name:"Amina Khoury",ini:"AK",city:"Paris",belt:"Noire",rating:4.8,sessions:112,fighters:31,winRate:68,specs:["JJB GI","MMA","Muay Thaï"],approach:"Offensif · Takedowns",available:true},
+{id:3,name:"Romain Dupuis",ini:"RD",city:"Lyon",belt:"Marron",rating:4.7,sessions:45,fighters:12,winRate:74,specs:["JJB NO GI","Grappling"],approach:"Guard player · Soumissions",available:false},
+{id:4,name:"Sofia Mendes",ini:"SM",city:"Marseille",belt:"Noire",rating:4.9,sessions:96,fighters:28,winRate:76,specs:["JJB GI","JJB NO GI"],approach:"Complet · Pression top",available:true},
+{id:5,name:"Yannick Leblanc",ini:"YL",city:"Toulouse",belt:"Noire",rating:4.6,sessions:34,fighters:9,winRate:66,specs:["MMA","Kickboxing"],approach:"Stand-up · Striking",available:true},
+];
+const COMPS=[
+{id:1,name:"Open de Grenoble",date:"8 mars 2026",day:"8",month:"MAR",city:"Grenoble",venue:"Halle Clémenceau",tags:["GI","NO GI"],fed:"CFJJB"},
+{id:2,name:"Festival du JJB",date:"21-22 mars 2026",day:"21",month:"MAR",city:"Verquin",venue:"ARENA Béthune",tags:["GI","NO GI"],fed:"CFJJB"},
+{id:3,name:"Open Île-de-France",date:"18 avril 2026",day:"18",month:"AVR",city:"Saint-Denis",venue:"Complexe sportif",tags:["GI"],fed:"CFJJB"},
+{id:4,name:"Open d'Orléans",date:"25-26 avril 2026",day:"25",month:"AVR",city:"Orléans",venue:"Palais des Sports",tags:["GI","NO GI"],fed:"CFJJB"},
+{id:5,name:"Open de Biganos",date:"2-3 mai 2026",day:"2",month:"MAI",city:"Biganos",venue:"Complexe sportif",tags:["GI"],fed:"CFJJB"},
+{id:6,name:"Open de Nice",date:"9-10 mai 2026",day:"9",month:"MAI",city:"Nice",venue:"Palais Nikaïa",tags:["GI","KIDS"],fed:"CFJJB"},
+{id:7,name:"Open de Saint-Raphaël",date:"23-24 mai 2026",day:"23",month:"MAI",city:"Saint-Raphaël",venue:"Salle omnisports",tags:["NO GI"],fed:"CFJJB"},
+];
+const USER={name:"Maxime Rousseau",ini:"MR",city:"Toulouse",belt:"Violette",stripes:2,combats:12,wins:9,losses:3,subs:4,rank:47,guard:"Gardien",specialty:"Half-guard · Spider guard",submissions:"Triangle · Kimura",weight:"Moyen · −82.3 kg",disciplines:"JJB GI · JJB NO GI",club:"Toulouse Fight Club",prof:"Antoine Morel"};
+const RESULTS=[{r:"W",e:"Open Nantes · Triangle",d:"Oct 2025"},{r:"W",e:"CF NO GI · Points 8-2",d:"Avr 2025"},{r:"L",e:"Open Bourges · Points 2-6",d:"Fév 2025"},{r:"W",e:"Open Lyon · Kimura",d:"Jan 2025"},{r:"W",e:"Open Toulouse · Points 6-0",d:"Nov 2024"}];
+const BELT_BG={Blanche:"#F5F5F5",Bleue:"#1565C0",Violette:"#6A1B9A",Marron:"#5D4037",Noire:"#111"};
+const BELT_C={Blanche:"#333",Bleue:"#fff",Violette:"#fff",Marron:"#fff",Noire:"#fff"};
+
+let currentScreen="home",selectedCoach=null,selectedComp=null,compFilter="Toutes",coachSearch="",coachDisc="Toutes";
+
+function tag(t){const m={GI:"tag-gi","NO GI":"tag-nogi",KIDS:"tag-kids",MMA:"tag-mma",Grappling:"tag-grappling"};return `<span class="tag ${m[t]||'tag-gi'}">${t}</span>`}
+function badge(text,bg,color){return `<span class="badge" style="background:${bg};color:${color}">${text}</span>`}
+function beltBadge(b){return badge("Ceinture "+b.toLowerCase(),BELT_BG[b]||"#111",BELT_C[b]||"#fff")}
+function statBox(n,l){return `<div class="stat-box"><div class="stat-num">${n}</div><div class="stat-label">${l}</div></div>`}
+
+function setActiveNav(key){
+document.querySelectorAll('.nav-item').forEach(el=>{el.classList.toggle('active',el.dataset.nav===key)})
+}
+
+function navigate(s){currentScreen=s;selectedCoach=null;selectedComp=null;render()}
+function showCoach(id){selectedCoach=COACHES.find(c=>c.id===id);currentScreen="coachDetail";render()}
+function showComp(id){selectedComp=COMPS.find(c=>c.id===id);currentScreen="compDetail";render()}
+function goBook(){currentScreen="booking";render()}
+function goConfirm(){currentScreen="confirmed";render()}
+function goBack(){
+if(currentScreen==="confirmed"||currentScreen==="booking"){currentScreen="coachDetail";render();return}
+if(currentScreen==="coachDetail"&&selectedComp){currentScreen="compDetail";render();return}
+if(currentScreen==="coachDetail"){currentScreen="coaches";render();return}
+if(currentScreen==="compDetail"){currentScreen="competitions";render();return}
+navigate("home")
+}
+
+function renderHome(){
+return `
+<div style="padding:8px 14px;display:flex;align-items:center;justify-content:space-between">
+<div><div style="font-size:20px;font-weight:900;color:#fff">Next Fight <span style="color:#B71C1C">XP</span></div><div style="font-size:11px;color:#888">Salut ${USER.name.split(" ")[0]} — prêt à combattre ?</div></div>
+<div class="avatar" style="width:36px;height:36px;background:#B71C1C;color:#fff;font-size:13px">${USER.ini}</div>
+</div>
+<div class="stat-row">${statBox(USER.combats,"Combats")}${statBox(USER.wins+"-"+USER.losses,"W / L")}${statBox(USER.subs,"Sub.")}${statBox("#"+USER.rank,"Rank")}</div>
+<div class="section-title">Prochaine compétition</div>
+<div class="card" onclick="showComp(1)" style="cursor:pointer">
+<div style="display:flex;justify-content:space-between"><div><div style="font-size:14px;font-weight:900;color:#fff">${COMPS[0].name}</div><div style="font-size:10px;color:#888;margin-top:2px">${COMPS[0].date} · ${COMPS[0].venue}</div><div style="margin-top:6px">${COMPS[0].tags.map(tag).join("")}</div></div><div style="background:#B71C1C;color:#fff;border-radius:8px;padding:6px 10px;font-size:10px;font-weight:700;height:fit-content">INSCRIT</div></div>
+<div style="margin-top:10px;padding-top:8px;border-top:1px solid #333;display:flex;align-items:center;gap:8px;cursor:pointer" onclick="event.stopPropagation();showCoach(1)">
+<div class="avatar" style="width:28px;height:28px;background:#222;color:#C9A832;font-size:10px;border:1px solid #C9A832">CT</div>
+<div><div style="font-size:10px;color:#C9A832;font-weight:700">Coach : Carlos Tavares</div><div style="font-size:9px;color:#888">★ 4.9 · 87 sessions · Ceinture noire</div></div></div>
+</div>
+<div class="section-title">Trouver un coach</div>
+<div class="card" style="display:flex;align-items:center;gap:10px;cursor:pointer" onclick="navigate('coaches')">
+<div style="flex:1;background:#222;border-radius:8px;padding:8px 10px;font-size:11px;color:#666">🔍 Ville, compétition, discipline...</div>
+<div style="background:#B71C1C;border-radius:8px;padding:8px 12px;font-size:11px;font-weight:900;color:#fff">50€</div>
+</div>
+<div class="section-title">Compétitions à venir</div>
+<div style="padding:0 12px">${COMPS.slice(0,3).map(c=>`
+<div class="comp-row" onclick="showComp(${c.id})"><div class="comp-date"><div class="comp-day">${c.day}</div><div class="comp-month">${c.month}</div></div><div style="flex:1"><div class="comp-name">${c.name}</div><div class="comp-loc">${c.city} · ${c.fed}</div></div>${c.tags.map(tag).join("")}</div>
+`).join("")}</div>`;
+}
+
+function renderCompetitions(){
+const filtered=compFilter==="Toutes"?COMPS:COMPS.filter(c=>c.tags.includes(compFilter==="NO GI"?"NO GI":compFilter.toUpperCase()));
+const filters=["Toutes","GI","NO GI","Kids","IBJJF"];
+return `
+<div style="padding:10px 14px"><div style="font-size:18px;font-weight:900;color:#fff">Compétitions <span style="color:#B71C1C">JJB</span></div>
+<div style="margin-top:8px">${filters.map(f=>`<span class="filter-pill ${compFilter===f?'active':'inactive'}" onclick="compFilter='${f}';render()">${f}</span>`).join("")}</div></div>
+<div style="padding:0 12px">${filtered.map(c=>`
+<div class="comp-row" onclick="showComp(${c.id})"><div class="comp-date"><div class="comp-day">${c.day}</div><div class="comp-month">${c.month}</div></div><div style="flex:1"><div class="comp-name">${c.name}</div><div class="comp-loc">${c.venue}, ${c.city}</div></div><div style="display:flex;flex-direction:column;gap:2px">${c.tags.map(tag).join("")}</div></div>
+`).join("")}</div>`;
+}
+
+function renderProfile(){
+return `
+<div class="profile-header gradient-red"><div class="profile-avatar" style="border:3px solid #B71C1C">${USER.ini}</div></div>
+<div style="padding-top:30px;text-align:center"><div style="font-size:18px;font-weight:900;color:#fff">${USER.name}</div><div style="font-size:11px;color:#888">${USER.city}, FR</div>
+<div style="margin-top:6px">${badge("Ceinture violette",BELT_BG.Violette,"#fff")}${badge(USER.stripes+" stripes","#1A2A1A","#4CAF50")}</div></div>
+<div class="stat-row" style="margin-top:10px">${statBox(USER.combats,"Combats")}${statBox(Math.round(USER.wins/USER.combats*100)+"%","Victoires")}${statBox(Math.round(USER.subs/USER.combats*100)+"%","Sub.")}</div>
+<div class="section-title">Profil technique</div>
+<div class="card" style="font-size:11px">
+${[["Jeu de garde",USER.guard,"#C9A832",true],["Spécialité",USER.specialty,"#fff",false],["Soumissions",USER.submissions,"#fff",false],["Catégorie",USER.weight,"#fff",false],["Disciplines",USER.disciplines,"#fff",false]].map(([l,v,c,b])=>`<div class="detail-row"><span class="detail-label">${l}</span><span style="color:${c};${b?'font-weight:700':''}">${v}</span></div>`).join("")}
+</div>
+<div class="section-title">Club</div>
+<div class="card" style="display:flex;align-items:center;gap:10px">
+<div class="avatar" style="width:32px;height:32px;background:#222;color:#B71C1C;font-size:10px;border:1px solid #333">TFC</div>
+<div><div style="font-size:12px;font-weight:700;color:#fff">${USER.club}</div><div style="font-size:9px;color:#888">Affilié CFJJB · Prof. ${USER.prof}</div></div></div>
+<div class="section-title">Derniers résultats</div>
+<div style="padding:0 12px;font-size:11px">${RESULTS.map((r,i)=>`<div class="result-row" style="${i<RESULTS.length-1?'border-bottom:1px solid #1A1A1A':''}"><span style="color:${r.r==="W"?"#4CAF50":"#B71C1C"};font-weight:900;width:16px">${r.r}</span><span style="color:#eee;flex:1;margin-left:8px">${r.e}</span><span style="color:#888;font-size:10px">${r.d}</span></div>`).join("")}</div>`;
+}
+
+function renderCoaches(){
+const discs=["Toutes","JJB GI","JJB NO GI","MMA","Grappling"];
+const filtered=COACHES.filter(c=>{
+const ms=!coachSearch||c.name.toLowerCase().includes(coachSearch.toLowerCase())||c.city.toLowerCase().includes(coachSearch.toLowerCase());
+const md=coachDisc==="Toutes"||c.specs.includes(coachDisc);
+return ms&&md});
+return `
+<div style="padding:10px 14px"><div style="font-size:18px;font-weight:900;color:#fff">Trouver un <span style="color:#B71C1C">coach</span></div>
+<input class="search-input" placeholder="🔍 Nom, ville..." value="${coachSearch}" oninput="coachSearch=this.value;render()">
+<div style="margin-top:8px">${discs.map(d=>`<span class="filter-pill ${coachDisc===d?'active':'inactive'}" onclick="coachDisc='${d}';render()">${d}</span>`).join("")}</div></div>
+<div style="padding:0 12px">${filtered.map(c=>`
+<div class="coach-card" onclick="showCoach(${c.id})"><div style="display:flex;align-items:center;gap:10px">
+<div class="avatar" style="width:44px;height:44px;background:#222;color:#C9A832;font-size:14px;border:2px solid #C9A832">${c.ini}</div>
+<div style="flex:1"><div style="font-size:13px;font-weight:700;color:#fff">${c.name}</div><div style="font-size:10px;color:#888">${c.city} · ★ ${c.rating} · ${c.sessions} sessions</div><div style="margin-top:4px">${c.specs.slice(0,3).map(tag).join("")}</div></div>
+<div style="text-align:center">${beltBadge(c.belt)}${c.available?'<div style="font-size:8px;color:#4CAF50;font-weight:700;margin-top:4px">Disponible</div>':''}</div>
+</div></div>`).join("")}</div>`;
+}
+
+function renderCoachDetail(){
+const c=selectedCoach;if(!c)return"";
+return `
+<div class="back-link" onclick="goBack()">← Retour</div>
+<div class="profile-header gradient-gold"><div class="profile-avatar" style="border:3px solid #C9A832;color:#C9A832">${c.ini}</div></div>
+<div style="padding-top:30px;text-align:center"><div style="font-size:18px;font-weight:900;color:#fff">${c.name}</div><div style="font-size:11px;color:#888">Coach certifié NF XP · ${c.city}</div>
+<div style="margin-top:6px">${beltBadge(c.belt)}${badge("★ "+c.rating,"#2A2A1A","#C9A832")}${c.available?badge("PRO","#1A2A1A","#4CAF50"):""}</div></div>
+<div class="stat-row" style="margin-top:10px">${statBox(c.sessions,"Sessions")}${statBox(c.fighters,"Combattants")}${statBox(c.winRate+"%","Win rate")}</div>
+<div class="section-title">Spécialités</div>
+<div class="card"><div style="display:flex;flex-wrap:wrap;gap:4px">${c.specs.map(tag).join("")}</div>
+<div class="detail-row" style="margin-top:8px"><span class="detail-label">Approche</span><span class="detail-value">${c.approach}</span></div>
+<div class="detail-row"><span class="detail-label">Disponibilité</span><span style="color:${c.available?"#4CAF50":"#B71C1C"};font-weight:700">${c.available?"Disponible":"Indisponible"}</span></div></div>
+<div style="padding:12px"><div class="btn-gold" onclick="goBook()">Réserver ${c.name.split(" ")[0]} · 50€ / session</div></div>`;
+}
+
+function renderCompDetail(){
+const c=selectedComp;if(!c)return"";
+const local=COACHES.filter(co=>co.available).slice(0,3);
+return `
+<div class="back-link" onclick="goBack()">← Retour</div>
+<div style="padding:8px 14px"><div style="font-size:20px;font-weight:900;color:#fff">${c.name}</div><div style="font-size:12px;color:#888;margin-top:2px">${c.date}</div><div style="font-size:12px;color:#888">${c.venue}, ${c.city}</div>
+<div style="margin-top:8px">${c.tags.map(tag).join("")}</div><div style="margin-top:4px">${badge(c.fed,"#222","#C9A832")}</div></div>
+<div style="padding:10px 12px"><div class="btn-primary">S'inscrire à cette compétition</div></div>
+<div class="section-title">Coachs disponibles</div>
+<div style="padding:0 12px">${local.map(co=>`
+<div class="coach-card" onclick="selectedComp=COMPS.find(x=>x.id===${c.id});showCoach(${co.id})" style="display:flex;align-items:center;gap:10px">
+<div class="avatar" style="width:36px;height:36px;background:#222;color:#C9A832;font-size:12px;border:1px solid #C9A832">${co.ini}</div>
+<div style="flex:1"><div style="font-size:12px;font-weight:700;color:#fff">${co.name}</div><div style="font-size:10px;color:#888">${co.city} · ★ ${co.rating} · ${co.specs[0]}</div></div>
+<div style="background:#C9A832;color:#0A0A0A;border-radius:6px;padding:4px 8px;font-size:10px;font-weight:900">50€</div>
+</div>`).join("")}</div>`;
+}
+
+function renderBooking(){
+const c=selectedCoach;if(!c)return"";
+return `
+<div class="back-link" onclick="goBack()">← Retour</div>
+<div style="padding:20px 14px;text-align:center">
+<div style="font-size:16px;font-weight:900;color:#fff">Réserver ${c.name}</div>
+<div style="font-size:12px;color:#888;margin-top:4px">Pour votre prochaine compétition</div>
+<div class="card" style="margin:20px 12px;text-align:left">
+<div style="font-size:11px;color:#888;margin-bottom:4px">Compétition</div><div style="font-size:13px;font-weight:700;color:#fff">Open de Grenoble — 8 mars 2026</div>
+<div style="font-size:11px;color:#888;margin-top:12px;margin-bottom:4px">Coach</div><div style="font-size:13px;font-weight:700;color:#C9A832">${c.name} · ★ ${c.rating}</div>
+<div style="font-size:11px;color:#888;margin-top:12px;margin-bottom:4px">Tarif</div>
+<div style="display:flex;justify-content:space-between;align-items:baseline"><div style="font-size:28px;font-weight:900;color:#B71C1C">50€</div><div style="font-size:10px;color:#888">40€ coach · 10€ plateforme</div></div>
+</div>
+<div style="font-size:10px;color:#888;margin-bottom:12px">Paiement sécurisé par Stripe · Versement coach sous 48h</div>
+<div class="btn-gold" onclick="goConfirm()">Confirmer & Payer 50€</div></div>`;
+}
+
+function renderConfirmed(){
+const c=selectedCoach;if(!c)return"";
+return `
+<div style="padding:60px 14px;text-align:center">
+<div style="font-size:48px;margin-bottom:16px">✅</div>
+<div style="font-size:20px;font-weight:900;color:#4CAF50">Réservation confirmée !</div>
+<div style="font-size:12px;color:#888;margin-top:8px">${c.name} a été notifié et vous accompagnera à l'Open de Grenoble le 8 mars.</div>
+<div class="card" style="margin:24px 12px;text-align:left">
+${[["Référence","NF-2026-0847","#fff"],["Coach",c.name,"#C9A832"],["Compétition","Open de Grenoble","#fff"],["Montant","50€","#B71C1C"]].map(([l,v,c])=>`<div class="detail-row"><span class="detail-label">${l}</span><span style="color:${c};font-weight:700">${v}</span></div>`).join("")}
+</div>
+<div class="btn-primary" onclick="navigate('home')">Retour à l'accueil</div></div>`;
+}
+
+function render(){
+const s=document.getElementById("screen");
+let html="";
+if(currentScreen==="home")html=renderHome();
+else if(currentScreen==="competitions")html=renderCompetitions();
+else if(currentScreen==="profile")html=renderProfile();
+else if(currentScreen==="coaches")html=renderCoaches();
+else if(currentScreen==="coachDetail")html=renderCoachDetail();
+else if(currentScreen==="compDetail")html=renderCompDetail();
+else if(currentScreen==="booking")html=renderBooking();
+else if(currentScreen==="confirmed")html=renderConfirmed();
+s.innerHTML=html+'<div class="spacer"></div>';
+s.scrollTop=0;
+
+const navMap={home:"home",competitions:"competitions",profile:"profile",coaches:"coaches",coachDetail:"coaches",compDetail:"competitions",booking:"coaches",confirmed:"home"};
+setActiveNav(navMap[currentScreen]||"home");
+}
+
+render();
+</script>
+</body>
+</html>

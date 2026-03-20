@@ -2,278 +2,159 @@
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Next Fight XP — Prototype</title>
-<meta name="description" content="Next Fight XP — La première marketplace de coaching à la compétition pour combattants MMA et JJB">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Next Fight XP — Prototype V2</title>
 <meta name="theme-color" content="#0A0A0A">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥊</text></svg>">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-html,body{height:100%;background:#111;font-family:-apple-system,'Segoe UI',Arial,sans-serif;overflow:hidden}
-.app-wrap{display:flex;justify-content:center;align-items:center;height:100dvh;padding:12px}
-.phone{width:375px;max-width:100vw;height:min(812px,100dvh - 24px);border-radius:40px;border:3px solid #333;background:#0A0A0A;overflow:hidden;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.5)}
-@media(max-width:400px){.phone{border-radius:0;border:none;height:100dvh;max-width:100vw}}
-.notch{width:120px;height:28px;background:#0A0A0A;border-radius:0 0 16px 16px;margin:0 auto;position:relative;z-index:20}
-.screen{height:calc(100% - 28px - 56px);overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
-.screen::-webkit-scrollbar{display:none}
-.statusbar{height:0;padding:0}
-.navbar{position:absolute;bottom:0;left:0;right:0;height:56px;background:#111;border-top:1px solid #222;display:flex;align-items:center;justify-content:space-around;z-index:10}
-.nav-item{text-align:center;cursor:pointer;padding:4px 12px;-webkit-tap-highlight-color:transparent}
-.nav-item .icon{font-size:20px;color:#666}
-.nav-item .label{font-size:9px;color:#666}
-.nav-item.active .icon,.nav-item.active .label{color:#B71C1C}
-.section-title{font-size:11px;font-weight:900;color:#B71C1C;padding:12px 14px 4px;letter-spacing:1px;text-transform:uppercase}
-.card{background:#1A1A1A;border-radius:12px;margin:4px 12px;padding:12px}
-.stat-row{display:flex;gap:6px;margin:6px 12px}
-.stat-box{flex:1;background:#1A1A1A;border-radius:8px;padding:8px 4px;text-align:center}
-.stat-num{font-size:18px;font-weight:900;color:#B71C1C}
-.stat-label{font-size:9px;color:#888}
-.badge{display:inline-block;padding:3px 8px;border-radius:4px;font-size:10px;font-weight:700;margin-right:4px}
-.tag{font-size:9px;padding:2px 6px;border-radius:3px;font-weight:700;margin-right:3px;display:inline-block}
-.tag-gi{background:#1A3A1A;color:#4CAF50}
-.tag-nogi{background:#3A1A1A;color:#B71C1C}
-.tag-kids{background:#1A2A3A;color:#42A5F5}
-.tag-mma{background:#2A1A1A;color:#EF5350}
-.tag-grappling{background:#2A1A2A;color:#AB47BC}
-.comp-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #222;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.comp-date{width:44px;text-align:center;flex-shrink:0}
-.comp-day{font-size:18px;font-weight:900;color:#fff}
-.comp-month{font-size:9px;color:#B71C1C;font-weight:900}
-.comp-name{font-weight:700;color:#eee;font-size:12px}
-.comp-loc{font-size:10px;color:#888}
-.avatar{border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0}
-.filter-pill{padding:4px 10px;border-radius:20px;font-size:10px;cursor:pointer;-webkit-tap-highlight-color:transparent;display:inline-block;margin-right:4px;margin-bottom:4px}
-.filter-pill.active{background:#B71C1C;color:#fff;font-weight:700}
-.filter-pill.inactive{background:#1A1A1A;color:#888}
-.btn-primary{background:#B71C1C;color:#fff;border-radius:10px;padding:14px;text-align:center;font-weight:900;font-size:15px;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.btn-gold{background:#C9A832;color:#0A0A0A;border-radius:10px;padding:14px;text-align:center;font-weight:900;font-size:15px;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.back-link{font-size:12px;color:#B71C1C;cursor:pointer;font-weight:700;padding:4px 14px;-webkit-tap-highlight-color:transparent}
-.coach-card{background:#1A1A1A;border-radius:10px;padding:12px;margin-bottom:8px;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.detail-row{display:flex;justify-content:space-between;margin-bottom:6px;font-size:11px}
-.detail-label{color:#888}
-.detail-value{color:#fff}
-.result-row{display:flex;justify-content:space-between;padding:5px 0;font-size:11px}
-.gradient-red{background:linear-gradient(135deg,#B71C1C,#7F0000)}
-.gradient-gold{background:linear-gradient(135deg,#C9A832,#8B7525)}
-.profile-header{position:relative;height:70px}
-.profile-avatar{width:56px;height:56px;border-radius:50%;background:#222;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;position:absolute;bottom:-24px;left:50%;transform:translateX(-50%)}
-.spacer{height:20px}
-.search-input{width:100%;background:#222;border:none;border-radius:8px;padding:10px 12px;color:#fff;font-size:12px;margin-top:8px;outline:none}
+*{margin:0;padding:0;box-sizing:border-box}html,body{height:100%;background:#111;font-family:-apple-system,'Segoe UI',Arial,sans-serif;overflow:hidden}
+.W{display:flex;justify-content:center;align-items:center;height:100dvh;padding:12px}
+.P{width:375px;max-width:100vw;height:min(812px,100dvh - 24px);border-radius:40px;border:3px solid #333;background:#0A0A0A;overflow:hidden;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+@media(max-width:400px){.P{border-radius:0;border:none;height:100dvh}}
+.N{width:120px;height:28px;background:#0A0A0A;border-radius:0 0 16px 16px;margin:0 auto;z-index:20;position:relative}
+.S{height:calc(100% - 28px - 56px);overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}.S::-webkit-scrollbar{display:none}
+.NB{position:absolute;bottom:0;left:0;right:0;height:56px;background:#111;border-top:1px solid #222;display:flex;align-items:center;justify-content:space-around;z-index:10}
+.NI{text-align:center;cursor:pointer;padding:4px 8px;-webkit-tap-highlight-color:transparent}
+.NI .ic{font-size:18px;color:#666}.NI .lb{font-size:8px;color:#666}.NI.ac .ic,.NI.ac .lb{color:#B71C1C}
+.st{font-size:11px;font-weight:900;color:#B71C1C;padding:12px 14px 4px;letter-spacing:1px;text-transform:uppercase}
+.cd{background:#1A1A1A;border-radius:12px;margin:4px 12px;padding:12px}
+.sr{display:flex;gap:6px;margin:6px 12px}
+.sb{flex:1;background:#1A1A1A;border-radius:8px;padding:8px 4px;text-align:center}
+.sn{font-size:18px;font-weight:900;color:#B71C1C}.sl{font-size:9px;color:#888}
+.bg{display:inline-block;padding:3px 8px;border-radius:4px;font-size:10px;font-weight:700;margin-right:4px}
+.tg{font-size:9px;padding:2px 6px;border-radius:3px;font-weight:700;margin-right:3px;display:inline-block}
+.gi{background:#1A3A1A;color:#4CAF50}.ng{background:#3A1A1A;color:#B71C1C}.ki{background:#1A2A3A;color:#42A5F5}
+.av{border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0}
+.fp{padding:4px 10px;border-radius:20px;font-size:10px;cursor:pointer;display:inline-block;margin-right:4px;margin-bottom:4px}
+.fa{background:#B71C1C;color:#fff;font-weight:700}.fi{background:#1A1A1A;color:#888}
+.bt{border-radius:10px;padding:14px;text-align:center;font-weight:900;font-size:15px;cursor:pointer}
+.br{background:#B71C1C;color:#fff}.bo{background:#C9A832;color:#0A0A0A}
+.si{width:100%;background:#222;border:none;border-radius:8px;padding:10px 12px;color:#fff;font-size:12px;margin-top:8px;outline:none;box-sizing:border-box}
+.tile{background:#1A1A1A;border-radius:14px;padding:14px;cursor:pointer;display:flex;flex-direction:column;gap:6px;transition:transform .15s}.tile:active{transform:scale(.97)}
+.ti{font-size:24px;width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center}
+.tt{font-size:13px;font-weight:700;color:#fff}.ts{font-size:10px;color:#888}
+.ad{background:#111;border:1px solid #222;border-radius:10px;margin:8px 12px;padding:10px 12px;display:flex;align-items:center;gap:10px;position:relative}
+.nc{background:#1A1A1A;border-radius:10px;margin-bottom:8px;padding:12px;cursor:pointer}
+.hc{background:#1A1A1A;border-radius:12px;padding:14px;margin-bottom:8px}
+.hn{font-size:24px;font-weight:900}.hl{font-size:10px;color:#888;margin-top:2px}
+.pb{height:6px;border-radius:3px;background:#222;overflow:hidden;margin-top:4px}
+.pf{height:100%;border-radius:3px}
+.mr{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #222}
+.sc{background:#1A1A1A;border-radius:12px;padding:12px;margin-bottom:8px;display:flex;align-items:center;gap:12px;cursor:pointer}
+.gh{background:linear-gradient(135deg,#B71C1C,#7F0000)}.gg{background:linear-gradient(135deg,#C9A832,#8B7525)}
+.ph{position:relative;height:70px}
+.pa{width:56px;height:56px;border-radius:50%;background:#222;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:20px;position:absolute;bottom:-24px;left:50%;transform:translateX(-50%)}
+.dr{display:flex;justify-content:space-between;margin-bottom:6px;font-size:11px}
 </style>
 </head>
 <body>
-<div class="app-wrap">
-<div class="phone">
-<div class="notch"></div>
-<div class="screen" id="screen"></div>
-<div class="navbar">
-<div class="nav-item" data-nav="home" onclick="navigate('home')"><div class="icon">⌂</div><div class="label">Accueil</div></div>
-<div class="nav-item" data-nav="competitions" onclick="navigate('competitions')"><div class="icon">📅</div><div class="label">Compétitions</div></div>
-<div class="nav-item" data-nav="profile" onclick="navigate('profile')"><div class="icon">👤</div><div class="label">Profil</div></div>
-<div class="nav-item" data-nav="coaches" onclick="navigate('coaches')"><div class="icon">👥</div><div class="label">Coachs</div></div>
-</div>
-</div>
-</div>
-
+<div class="W"><div class="P"><div class="N"></div><div class="S" id="scr"></div>
+<div class="NB">
+<div class="NI" data-n="home" onclick="go('home')"><div class="ic">⌂</div><div class="lb">Accueil</div></div>
+<div class="NI" data-n="comp" onclick="go('comp')"><div class="ic">📅</div><div class="lb">Compét.</div></div>
+<div class="NI" data-n="spar" onclick="go('spar')"><div class="ic">🤝</div><div class="lb">Sparring</div></div>
+<div class="NI" data-n="health" onclick="go('health')"><div class="ic">❤️</div><div class="lb">Santé</div></div>
+<div class="NI" data-n="prof" onclick="go('prof')"><div class="ic">👤</div><div class="lb">Profil</div></div>
+</div></div></div>
 <script>
-const COACHES=[
-{id:1,name:"Carlos Tavares",ini:"CT",city:"Toulouse",belt:"Noire",rating:4.9,sessions:87,fighters:23,winRate:71,specs:["JJB GI","JJB NO GI","Grappling"],approach:"Stratégique · Jeu de passage",available:true},
-{id:2,name:"Amina Khoury",ini:"AK",city:"Paris",belt:"Noire",rating:4.8,sessions:112,fighters:31,winRate:68,specs:["JJB GI","MMA","Muay Thaï"],approach:"Offensif · Takedowns",available:true},
-{id:3,name:"Romain Dupuis",ini:"RD",city:"Lyon",belt:"Marron",rating:4.7,sessions:45,fighters:12,winRate:74,specs:["JJB NO GI","Grappling"],approach:"Guard player · Soumissions",available:false},
-{id:4,name:"Sofia Mendes",ini:"SM",city:"Marseille",belt:"Noire",rating:4.9,sessions:96,fighters:28,winRate:76,specs:["JJB GI","JJB NO GI"],approach:"Complet · Pression top",available:true},
-{id:5,name:"Yannick Leblanc",ini:"YL",city:"Toulouse",belt:"Noire",rating:4.6,sessions:34,fighters:9,winRate:66,specs:["MMA","Kickboxing"],approach:"Stand-up · Striking",available:true},
+var CO=[{id:1,n:"Carlos Tavares",i:"CT",c:"Toulouse",b:"Noire",r:4.9,s:87,f:23,w:71,sp:["JJB GI","JJB NO GI","Grappling"],ap:"Stratégique · Jeu de passage",av:1},{id:2,n:"Amina Khoury",i:"AK",c:"Paris",b:"Noire",r:4.8,s:112,f:31,w:68,sp:["JJB GI","MMA","Muay Thaï"],ap:"Offensif · Takedowns",av:1},{id:3,n:"Romain Dupuis",i:"RD",c:"Lyon",b:"Marron",r:4.7,s:45,f:12,w:74,sp:["JJB NO GI","Grappling"],ap:"Guard player",av:0},{id:4,n:"Sofia Mendes",i:"SM",c:"Marseille",b:"Noire",r:4.9,s:96,f:28,w:76,sp:["JJB GI","JJB NO GI"],ap:"Pression top",av:1},{id:5,n:"Yannick Leblanc",i:"YL",c:"Toulouse",b:"Noire",r:4.6,s:34,f:9,w:66,sp:["MMA","Kickboxing"],ap:"Stand-up",av:1}];
+var CMP=[{id:1,n:"Open de Grenoble",d:"8 mars 2026",dy:"8",mo:"MAR",c:"Grenoble",v:"Halle Clémenceau",t:["GI","NO GI"],f:"CFJJB"},{id:2,n:"Festival du JJB",d:"21-22 mars",dy:"21",mo:"MAR",c:"Verquin",v:"ARENA Béthune",t:["GI","NO GI"],f:"CFJJB"},{id:3,n:"Open Île-de-France",d:"18 avril",dy:"18",mo:"AVR",c:"Saint-Denis",v:"Complexe sportif",t:["GI"],f:"CFJJB"},{id:4,n:"Open d'Orléans",d:"25-26 avril",dy:"25",mo:"AVR",c:"Orléans",v:"Palais des Sports",t:["GI","NO GI"],f:"CFJJB"},{id:5,n:"Open de Biganos",d:"2-3 mai",dy:"2",mo:"MAI",c:"Biganos",v:"Complexe sportif",t:["GI"],f:"CFJJB"},{id:6,n:"Open de Nice",d:"9-10 mai",dy:"9",mo:"MAI",c:"Nice",v:"Palais Nikaïa",t:["GI","KIDS"],f:"CFJJB"},{id:7,n:"Open St-Raphaël",d:"23-24 mai",dy:"23",mo:"MAI",c:"Saint-Raphaël",v:"Salle omnisports",t:["NO GI"],f:"CFJJB"}];
+var SP=[{id:1,n:"Lucas Martin",i:"LM",g:"H",c:"Toulouse",w:"-82 kg",ds:"2.3 km",st:"Passeur",nt:"Sparring guard recovery avant Open Grenoble",discs:[{n:"JJB GI",b:"Violette"},{n:"JJB NO GI",b:"Violette"}]},{id:2,n:"Karim Bensaid",i:"KB",g:"H",c:"Toulouse",w:"-76 kg",ds:"4.1 km",st:"Guardien",nt:"Dispo samedi matin, salle TFC",discs:[{n:"JJB NO GI",b:"Bleue"},{n:"MMA",b:"Vert"}]},{id:3,n:"Léa Fontaine",i:"LF",g:"F",c:"Blagnac",w:"-64 kg",ds:"5.7 km",st:"Spider guard",nt:"Prépa CF France, cherche rounds intenses",discs:[{n:"JJB GI",b:"Violette"}]},{id:4,n:"Thomas Petit",i:"TP",g:"H",c:"Colomiers",w:"-88 kg",ds:"8.2 km",st:"Pressure passer",nt:"3 rounds de 7 min, rythme compétition",discs:[{n:"JJB GI",b:"Marron"},{n:"Grappling",b:"Marron"}]},{id:5,n:"Nina Oliveira",i:"NO",g:"F",c:"Toulouse",w:"-58 kg",ds:"1.8 km",st:"Leg locker",nt:"Entraînement technique mercredi soir",discs:[{n:"JJB NO GI",b:"Bleue"},{n:"MMA",b:"Vert"}]}];
+var NW=[{cat:"JJB",t:"CFJJB : le CQP JJB reconnu par l'État",s:"Professionnalisation des enseignants",tm:"2h",h:1},{cat:"MMA",t:"UFC Paris 3 confirmé septembre 2026",s:"Accor Arena, 3ème événement UFC France",tm:"5h",h:1},{cat:"CFJJB",t:"Open Grenoble : 800 inscrits, record",s:"NO GI dépasse le GI pour la 1ère fois",tm:"Hier",h:0},{cat:"Grappling",t:"Craig Jones Invitational 2 : résultats",s:"Récap superfights et surprises du CJI 2",tm:"Hier",h:0},{cat:"FMMAF",t:"Autonomie FMMAF repoussée fin 2027",s:"Tutelle FFB prolongée une année",tm:"2j",h:0}];
+var ML=[{tm:"7h30",nm:"Petit-déjeuner",it:"Oeufs (3) · Avocat · Pain complet · Fruits",ca:520,pr:35},{tm:"10h",nm:"Collation",it:"Whey · Banane · Amandes (20g)",ca:280,pr:28},{tm:"12h30",nm:"Déjeuner",it:"Poulet (200g) · Riz · Brocolis · Huile olive",ca:680,pr:48},{tm:"16h",nm:"Pré-training",it:"Flocons avoine · Miel · Beurre cacahuète",ca:350,pr:12},{tm:"19h30",nm:"Post-training",it:"Saumon (180g) · Patate douce · Quinoa",ca:620,pr:42},{tm:"21h30",nm:"Collation soir",it:"Fromage blanc 0% · Noix · Miel",ca:200,pr:18}];
+var U={n:"Maxime Rousseau",i:"MR",c:"Toulouse",b:"Violette",str:2,co:12,wi:9,lo:3,su:4,rk:47,gd:"Gardien",sp:"Half-guard · Spider guard",sb:"Triangle · Kimura",wt:"Moyen · −82.3 kg",dc:"JJB GI · JJB NO GI",cl:"Toulouse Fight Club",pr:"Antoine Morel"};
+var RS=[{r:"W",e:"Open Nantes · Triangle",d:"Oct 25"},{r:"W",e:"CF NO GI · 8-2",d:"Avr 25"},{r:"L",e:"Open Bourges · 2-6",d:"Fév 25"},{r:"W",e:"Open Lyon · Kimura",d:"Jan 25"},{r:"W",e:"Open Toulouse · 6-0",d:"Nov 24"}];
+var BB={Blanche:["#F5F5F5","#333"],Bleue:["#1565C0","#fff"],Violette:["#6A1B9A","#fff"],Marron:["#5D4037","#fff"],Noire:["#111","#fff"]};
+var cs="home",sc=null,scp=null,cf="Toutes",csrc="",cdf="Toutes",nfl="Toutes",ssr="",spd=null;
+
+function tg(t){return'<span class="tg '+(t==="GI"?"gi":t==="NO GI"?"ng":t==="KIDS"?"ki":"gi")+'">'+t+'</span>'}
+function bd(t,b,c){return'<span class="bg" style="background:'+b+';color:'+c+'">'+t+'</span>'}
+function bb(b){var x=BB[b]||["#111","#fff"];return bd(b,x[0],x[1])}
+function sbx(n,l){return'<div class="sb"><div class="sn">'+n+'</div><div class="sl">'+l+'</div></div>'}
+function pbr(v,mx,c){return'<div class="pb"><div class="pf" style="width:'+Math.min(100,Math.round(v/mx*100))+'%;background:'+c+'"></div></div>'}
+function ad(br,tx,ct){return'<div class="ad"><div style="font-size:7px;color:#555;position:absolute;top:4px;right:8px;letter-spacing:1px">SPONSORISÉ</div><div style="width:36px;height:36px;border-radius:8px;background:#222;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">🏷️</div><div style="flex:1"><div style="font-size:11px;font-weight:700;color:#ccc">'+br+'</div><div style="font-size:10px;color:#888;margin-top:2px">'+tx+'</div></div><div style="background:#222;border-radius:6px;padding:4px 8px;font-size:9px;color:#B71C1C;font-weight:700;flex-shrink:0">'+ct+'</div></div>'}
+
+function sn(k){document.querySelectorAll('.NI').forEach(function(e){e.classList.toggle('ac',e.dataset.n===k)})}
+function go(s){cs=s;sc=null;scp=null;spd=null;R()}
+function gBk(){if(cs==="cf"||cs==="bk"){cs="cd";R();return}if(cs==="cd"&&scp){cs="cpd";R();return}if(cs==="cd"){cs="coach";R();return}if(cs==="cpd"){cs="comp";R();return}if(cs==="spd"){cs="spar";R();return}go("home")}
+
+function rHome(){
+var tiles=[{ic:"🥊",bg:"#2A1010",t:"Trouver un coach",s:"50€ / session",a:"go('coach')"},{ic:"📅",bg:"#1A2A1A",t:"Compétitions",s:CMP.length+" événements",a:"go('comp')"},{ic:"🤝",bg:"#1A1A2A",t:"Sparring partner",s:"Gratuit · "+SP.length+" dispo",a:"go('spar')"},{ic:"❤️",bg:"#2A1A1A",t:"Suivi santé & diet",s:"Objectif : −82.3 kg",a:"go('health')"},{ic:"👤",bg:"#1A1A1A",t:"Mon profil",s:U.b+" · "+U.co+" combats",a:"go('prof')"},{ic:"📊",bg:"#1A2A2A",t:"Classement",s:"#"+U.rk+" national",a:""}];
+return'<div style="padding:10px 14px;display:flex;align-items:center;justify-content:space-between"><div><div style="font-size:22px;font-weight:900;color:#fff">Next Fight <span style="color:#B71C1C">XP</span></div><div style="font-size:11px;color:#888">Salut '+U.n.split(" ")[0]+' 👋</div></div><div class="av" style="width:36px;height:36px;background:#B71C1C;color:#fff;font-size:13px">'+U.i+'</div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:8px 12px">'+tiles.map(function(c){return'<div class="tile" onclick="'+c.a+'"><div class="ti" style="background:'+c.bg+'">'+c.ic+'</div><div class="tt">'+c.t+'</div><div class="ts">'+c.s+'</div></div>'}).join("")+'</div><div class="st">Prochaine compétition</div><div class="cd" onclick="scp=CMP[0];cs=\'cpd\';R()" style="cursor:pointer"><div style="display:flex;justify-content:space-between"><div><div style="font-size:14px;font-weight:900;color:#fff">'+CMP[0].n+'</div><div style="font-size:10px;color:#888;margin-top:2px">'+CMP[0].d+' · '+CMP[0].v+'</div><div style="margin-top:6px">'+CMP[0].t.map(tg).join("")+'</div></div><div style="background:#B71C1C;color:#fff;border-radius:8px;padding:6px 10px;font-size:10px;font-weight:700;height:fit-content">INSCRIT</div></div></div>'+ad("Venum","Gants, rashguards, shorts officiels","−15%")+'<div class="st">Actualités <span style="color:#888;font-weight:400;font-size:9px;text-transform:none">personnalisées</span></div><div style="padding:0 12px"><div style="margin-bottom:8px">'+["Toutes","JJB","MMA","CFJJB","Grappling"].map(function(f){return'<span class="fp '+(nfl===f?"fa":"fi")+'" onclick="nfl=\''+f+'\';R()">'+f+'</span>'}).join("")+'</div>'+NW.filter(function(n){return nfl==="Toutes"||n.cat===nfl}).map(function(n){return'<div class="nc"><div style="display:flex;align-items:center;gap:6px"><span class="bg" style="background:#222;color:#B71C1C;font-size:8px">'+n.cat+'</span>'+(n.h?'<span style="font-size:8px;color:#C9A832;font-weight:700">🔥 TRENDING</span>':'')+'<span style="font-size:9px;color:#555">'+n.tm+'</span></div><div style="font-size:12px;font-weight:700;color:#eee;margin-top:6px">'+n.t+'</div><div style="font-size:10px;color:#888;margin-top:2px">'+n.s+'</div></div>'}).join("")+'</div>'+ad("Hayabusa","Gi et No-Gi premium — Livraison gratuite","Voir")}
+
+function rComp(){var fl=cf==="Toutes"?CMP:CMP.filter(function(c){return c.t.indexOf(cf.toUpperCase())>=0});return'<div style="padding:10px 14px"><div style="font-size:18px;font-weight:900;color:#fff">Compétitions <span style="color:#B71C1C">JJB</span></div><div style="margin-top:8px">'+["Toutes","GI","NO GI","Kids","IBJJF"].map(function(f){return'<span class="fp '+(cf===f?"fa":"fi")+'" onclick="cf=\''+f+'\';R()">'+f+'</span>'}).join("")+'</div></div><div style="padding:0 12px">'+fl.map(function(c){return'<div style="display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #222;cursor:pointer" onclick="scp=CMP.find(function(x){return x.id==='+c.id+'});cs=\'cpd\';R()"><div style="width:44px;text-align:center;flex-shrink:0"><div style="font-size:18px;font-weight:900;color:#fff">'+c.dy+'</div><div style="font-size:9px;color:#B71C1C;font-weight:900">'+c.mo+'</div></div><div style="flex:1"><div style="font-weight:700;color:#eee;font-size:12px">'+c.n+'</div><div style="font-size:10px;color:#888">'+c.v+', '+c.c+'</div></div><div style="display:flex;flex-direction:column;gap:2px">'+c.t.map(tg).join("")+'</div></div>'}).join("")+'</div>'}
+
+function discTag(d){var bc=BB[d.b]?BB[d.b][0]:(d.b==="Vert"?"#2E7D32":"#444");return'<span style="font-size:9px;padding:2px 7px;border-radius:3px;font-weight:700;background:'+bc+'22;color:'+bc+';border:1px solid '+bc+'66;margin-right:3px">'+d.n+'</span>'}
+function rSpar(){var fl=SP.filter(function(s){return!ssr||s.n.toLowerCase().indexOf(ssr.toLowerCase())>=0||s.c.toLowerCase().indexOf(ssr.toLowerCase())>=0});return'<div style="padding:10px 14px"><div style="font-size:18px;font-weight:900;color:#fff">Sparring <span style="color:#B71C1C">partner</span></div><div style="font-size:11px;color:#888;margin-top:2px">Trouvez un partenaire · Gratuit</div><input class="si" placeholder="🔍 Nom, ville, ceinture..." value="'+ssr+'" oninput="ssr=this.value;R()"></div><div style="padding:0 12px">'+fl.map(function(s){var mainBelt=s.discs[0]?s.discs[0].b:"Blanche";var bc=BB[mainBelt]?BB[mainBelt][0]:(mainBelt==="Vert"?"#2E7D32":"#444");var gc=s.g==="F"?"#E91E63":"#42A5F5";return'<div style="background:#1A1A1A;border-radius:12px;padding:12px;margin-bottom:8px;display:flex;align-items:flex-start;gap:12px;cursor:pointer;border-left:3px solid '+bc+'" onclick="spd=SP.find(function(x){return x.id==='+s.id+'});cs=\'spd\';R()"><div style="position:relative;flex-shrink:0"><div class="av" style="width:48px;height:48px;background:#111;color:'+bc+';font-size:15px;border:2px solid '+bc+'">'+s.i+'</div><div style="position:absolute;bottom:-2px;right:-2px;width:18px;height:18px;border-radius:50%;background:'+gc+';color:#fff;font-size:9px;font-weight:700;display:flex;align-items:center;justify-content:center;border:2px solid #1A1A1A">'+s.g+'</div></div><div style="flex:1;min-width:0"><div style="display:flex;align-items:center;gap:6px"><span style="font-size:13px;font-weight:700;color:#fff">'+s.n+'</span><span style="font-size:9px;background:'+(s.g==="F"?"#2A1020":"#102030")+';color:'+gc+';padding:1px 5px;border-radius:3px;font-weight:700">'+(s.g==="F"?"Femme":"Homme")+'</span></div><div style="font-size:10px;color:#888;margin-top:2px">'+s.c+' · '+s.w+' · '+s.st+'</div><div style="margin-top:5px;display:flex;flex-wrap:wrap;gap:2px">'+s.discs.map(discTag).join("")+'</div><div style="font-size:10px;color:#C9A832;margin-top:5px;font-style:italic">« '+s.nt+' »</div></div><div style="text-align:center;flex-shrink:0"><div style="font-size:12px;font-weight:700;color:#4CAF50">'+s.ds+'</div><div style="font-size:8px;color:#888">de vous</div></div></div>'}).join("")+'</div><div style="padding:12px"><div class="bt br">Publier une annonce de sparring</div></div>'}
+
+function rSpD(){if(!spd)return"";var mainBelt=spd.discs[0]?spd.discs[0].b:"Blanche";var bc=BB[mainBelt]?BB[mainBelt][0]:(mainBelt==="Vert"?"#2E7D32":"#444");var gc=spd.g==="F"?"#E91E63":"#42A5F5";return'<div style="font-size:12px;color:#B71C1C;cursor:pointer;font-weight:700;padding:4px 14px" onclick="gBk()">← Retour</div><div class="ph gh"><div class="pa" style="border:3px solid '+bc+';color:'+bc+'">'+spd.i+'</div></div><div style="padding-top:30px;text-align:center"><div style="display:flex;align-items:center;justify-content:center;gap:6px"><span style="font-size:18px;font-weight:900;color:#fff">'+spd.n+'</span><span style="font-size:10px;background:'+(spd.g==="F"?"#2A1020":"#102030")+';color:'+gc+';padding:2px 6px;border-radius:3px;font-weight:700">'+(spd.g==="F"?"Femme":"Homme")+'</span></div><div style="font-size:11px;color:#888">'+spd.c+' · '+spd.ds+'</div><div style="margin-top:6px">'+bd(spd.w,"#222","#fff")+bd(spd.st,"#1A2A1A","#C9A832")+'</div><div style="margin-top:6px">'+spd.discs.map(discTag).join("")+'</div></div><div class="cd" style="margin-top:12px"><div style="font-size:11px;color:#888;margin-bottom:4px">Message</div><div style="font-size:12px;color:#C9A832;font-style:italic">« '+spd.nt+' »</div></div><div style="padding:12px;display:flex;gap:8px"><div style="flex:1" class="bt br">Contacter</div><div style="flex:1;background:#222;color:#fff;border-radius:10px;padding:14px;text-align:center;font-weight:900;font-size:15px;cursor:pointer">Proposer une date</div></div>'}
+
+function rHealth(){var tc=0,tp=0;ML.forEach(function(m){tc+=m.ca;tp+=m.pr});return'<div style="padding:10px 14px"><div style="font-size:18px;font-weight:900;color:#fff">Suivi <span style="color:#B71C1C">santé</span></div><div style="font-size:11px;color:#888;margin-top:2px">Apple Health · Plan diet coach</div></div><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 12px"><div class="hc"><div style="display:flex;justify-content:space-between"><div><div class="hn" style="color:#B71C1C">81.4 kg</div><div class="hl">Poids · obj −82.3</div></div><div style="font-size:18px">⚖️</div></div>'+pbr(81.4,82.3,"#4CAF50")+'<div style="font-size:9px;color:#4CAF50;margin-top:4px">✓ Dans l\'objectif</div></div><div class="hc"><div style="display:flex;justify-content:space-between"><div><div class="hn" style="color:#C9A832">8 247</div><div class="hl">Pas aujourd\'hui</div></div><div style="font-size:18px">🏃</div></div>'+pbr(8247,10000,"#C9A832")+'<div style="font-size:9px;color:#888;margin-top:4px">Obj : 10 000 pas</div></div><div class="hc"><div style="display:flex;justify-content:space-between"><div><div class="hn" style="color:#4CAF50">62 bpm</div><div class="hl">FC repos</div></div><div style="font-size:18px">❤️</div></div>'+pbr(62,80,"#4CAF50")+'<div style="font-size:9px;color:#4CAF50;margin-top:4px">Excellent</div></div><div class="hc"><div style="display:flex;justify-content:space-between"><div><div class="hn" style="color:#42A5F5">7h42</div><div class="hl">Sommeil</div></div><div style="font-size:18px">😴</div></div>'+pbr(7.7,8,"#42A5F5")+'<div style="font-size:9px;color:#888;margin-top:4px">Obj : 8h</div></div></div><div style="padding:0 12px;margin-top:8px"><div class="hc"><div style="display:flex;justify-content:space-between"><div><div style="font-size:13px;font-weight:700;color:#fff">Bilan calories</div><div style="font-size:10px;color:#888;margin-top:2px">Plan Dr. Sarah Nutrition</div></div><div style="text-align:right"><div style="font-size:18px;font-weight:900;color:#B71C1C">'+tc+'</div><div style="font-size:9px;color:#888">/ 2 700 kcal</div></div></div>'+pbr(tc,2700,"#B71C1C")+'<div style="display:flex;justify-content:space-around;margin-top:10px"><div style="text-align:center"><div style="font-size:14px;font-weight:700;color:#C9A832">'+tp+'g</div><div style="font-size:9px;color:#888">Protéines</div></div><div style="text-align:center"><div style="font-size:14px;font-weight:700;color:#42A5F5">245g</div><div style="font-size:9px;color:#888">Glucides</div></div><div style="text-align:center"><div style="font-size:14px;font-weight:700;color:#AB47BC">72g</div><div style="font-size:9px;color:#888">Lipides</div></div></div></div></div><div class="st">Plan alimentaire</div><div style="padding:0 12px">'+ML.map(function(m){return'<div class="mr"><div style="width:40px;text-align:center;flex-shrink:0"><div style="font-size:11px;font-weight:700;color:#B71C1C">'+m.tm+'</div></div><div style="flex:1"><div style="font-size:12px;font-weight:700;color:#fff">'+m.nm+'</div><div style="font-size:10px;color:#888;margin-top:2px">'+m.it+'</div></div><div style="text-align:right;flex-shrink:0"><div style="font-size:11px;font-weight:700;color:#C9A832">'+m.ca+'</div><div style="font-size:8px;color:#888">'+m.pr+'g prot</div></div></div>'}).join("")+'</div><div class="st">Coach diététique</div><div class="cd" style="display:flex;align-items:center;gap:10px"><div class="av" style="width:40px;height:40px;background:#1A2A1A;color:#4CAF50;font-size:14px;border:1px solid #4CAF50">SN</div><div style="flex:1"><div style="font-size:12px;font-weight:700;color:#fff">Dr. Sarah Nutrition</div><div style="font-size:10px;color:#888">Diététicienne sport · Partenaire NF XP</div><div style="font-size:9px;color:#4CAF50;margin-top:2px">★ 4.8 · Spécialiste coupe de poids</div></div></div>'+ad("Bulk Powders","Whey isolate & créatine — Code NFXP","−20%")}
+
+function rProf(){
+var disciplines=[
+{name:"JJB GI",belt:"Violette",stripes:2,since:"2019",icon:"🥋",bg:"#6A1B9A",active:1},
+{name:"JJB NO GI",belt:"Violette",stripes:1,since:"2020",icon:"🤼",bg:"#6A1B9A",active:1},
+{name:"MMA",belt:"Grade vert",stripes:0,since:"2022",icon:"🥊",bg:"#1A6A1A",active:1},
+{name:"Judo",belt:"Marron",stripes:0,since:"2014",icon:"🥋",bg:"#5D4037",active:0},
+{name:"Boxe anglaise",belt:"—",stripes:0,since:"2021",icon:"🥊",bg:"#333",active:0}
 ];
-const COMPS=[
-{id:1,name:"Open de Grenoble",date:"8 mars 2026",day:"8",month:"MAR",city:"Grenoble",venue:"Halle Clémenceau",tags:["GI","NO GI"],fed:"CFJJB"},
-{id:2,name:"Festival du JJB",date:"21-22 mars 2026",day:"21",month:"MAR",city:"Verquin",venue:"ARENA Béthune",tags:["GI","NO GI"],fed:"CFJJB"},
-{id:3,name:"Open Île-de-France",date:"18 avril 2026",day:"18",month:"AVR",city:"Saint-Denis",venue:"Complexe sportif",tags:["GI"],fed:"CFJJB"},
-{id:4,name:"Open d'Orléans",date:"25-26 avril 2026",day:"25",month:"AVR",city:"Orléans",venue:"Palais des Sports",tags:["GI","NO GI"],fed:"CFJJB"},
-{id:5,name:"Open de Biganos",date:"2-3 mai 2026",day:"2",month:"MAI",city:"Biganos",venue:"Complexe sportif",tags:["GI"],fed:"CFJJB"},
-{id:6,name:"Open de Nice",date:"9-10 mai 2026",day:"9",month:"MAI",city:"Nice",venue:"Palais Nikaïa",tags:["GI","KIDS"],fed:"CFJJB"},
-{id:7,name:"Open de Saint-Raphaël",date:"23-24 mai 2026",day:"23",month:"MAI",city:"Saint-Raphaël",venue:"Salle omnisports",tags:["NO GI"],fed:"CFJJB"},
+var palmares=[
+{medal:"🥇",event:"Championnat Occitanie JJB GI",cat:"Violette −82kg",date:"Nov 2025"},
+{medal:"🥈",event:"Open de Nantes NO GI",cat:"Violette −82kg",date:"Oct 2025"},
+{medal:"🥇",event:"Open de Lyon JJB GI",cat:"Violette −82kg",date:"Jan 2025"},
+{medal:"🥉",event:"CF France JJB NO GI",cat:"Violette −82kg",date:"Avr 2025"},
+{medal:"🥇",event:"Open de Toulouse JJB GI",cat:"Bleue −82kg",date:"Nov 2024"},
+{medal:"🥇",event:"Championnat Occitanie Judo",cat:"Cadet −81kg",date:"Mar 2017"}
 ];
-const USER={name:"Maxime Rousseau",ini:"MR",city:"Toulouse",belt:"Violette",stripes:2,combats:12,wins:9,losses:3,subs:4,rank:47,guard:"Gardien",specialty:"Half-guard · Spider guard",submissions:"Triangle · Kimura",weight:"Moyen · −82.3 kg",disciplines:"JJB GI · JJB NO GI",club:"Toulouse Fight Club",prof:"Antoine Morel"};
-const RESULTS=[{r:"W",e:"Open Nantes · Triangle",d:"Oct 2025"},{r:"W",e:"CF NO GI · Points 8-2",d:"Avr 2025"},{r:"L",e:"Open Bourges · Points 2-6",d:"Fév 2025"},{r:"W",e:"Open Lyon · Kimura",d:"Jan 2025"},{r:"W",e:"Open Toulouse · Points 6-0",d:"Nov 2024"}];
-const BELT_BG={Blanche:"#F5F5F5",Bleue:"#1565C0",Violette:"#6A1B9A",Marron:"#5D4037",Noire:"#111"};
-const BELT_C={Blanche:"#333",Bleue:"#fff",Violette:"#fff",Marron:"#fff",Noire:"#fff"};
+var clubs=[
+{name:"Toulouse Fight Club",role:"Membre actif",period:"2021 — Présent",fed:"CFJJB",prof:"Antoine Morel",disciplines:"JJB GI · JJB NO GI · MMA",current:1},
+{name:"MMA Factory Paris",role:"Stage intensif",period:"Été 2024",fed:"FMMAF",prof:"Fernand Lopez",disciplines:"MMA · Grappling",current:0},
+{name:"Dojo Toulousain",role:"Compétiteur",period:"2014 — 2020",fed:"FFJDA",prof:"Marc Dupont",disciplines:"Judo",current:0},
+{name:"Boxing Club 31",role:"Loisir",period:"2021 — 2022",fed:"FFB",prof:"Karim Sahli",disciplines:"Boxe anglaise",current:0}
+];
+var stats=[
+{label:"Combats total",value:U.co,color:"#B71C1C"},{label:"Victoires",value:U.wi,color:"#4CAF50"},{label:"Défaites",value:U.lo,color:"#B71C1C"},{label:"Soumissions",value:U.su,color:"#C9A832"},{label:"Points moyens",value:"6.2",color:"#42A5F5"},{label:"Ranking FR",value:"#"+U.rk,color:"#AB47BC"}
+];
+return'<div class="ph gh"><div class="pa" style="border:3px solid #B71C1C;color:#fff">'+U.i+'</div></div>'+
+'<div style="padding-top:30px;text-align:center"><div style="font-size:20px;font-weight:900;color:#fff">'+U.n+'</div><div style="font-size:11px;color:#888">@maxime.bjj · '+U.c+', FR</div>'+
+'<div style="margin-top:8px;display:flex;justify-content:center;gap:8px"><div style="background:#222;border:1px solid #B71C1C;border-radius:8px;padding:6px 14px;font-size:11px;color:#B71C1C;font-weight:700;cursor:pointer">✏️ Modifier</div><div style="background:#B71C1C;border-radius:8px;padding:6px 14px;font-size:11px;color:#fff;font-weight:700;cursor:pointer">📤 Partager profil public</div></div></div>'+
 
-let currentScreen="home",selectedCoach=null,selectedComp=null,compFilter="Toutes",coachSearch="",coachDisc="Toutes";
+'<div class="st">Disciplines & grades</div>'+
+'<div style="padding:0 12px">'+disciplines.map(function(d){return'<div style="background:#1A1A1A;border-radius:10px;padding:10px 12px;margin-bottom:6px;display:flex;align-items:center;gap:10px;border-left:3px solid '+d.bg+'"><div style="font-size:20px;width:32px;text-align:center">'+d.icon+'</div><div style="flex:1"><div style="display:flex;align-items:center;gap:6px"><span style="font-size:13px;font-weight:700;color:#fff">'+d.name+'</span>'+(d.active?'<span style="font-size:7px;background:#1A2A1A;color:#4CAF50;padding:2px 5px;border-radius:3px;font-weight:700">ACTIF</span>':'<span style="font-size:7px;background:#222;color:#666;padding:2px 5px;border-radius:3px">PASSÉ</span>')+'</div><div style="font-size:10px;color:#888;margin-top:2px">Depuis '+d.since+'</div></div><div style="text-align:center"><div style="padding:3px 8px;border-radius:4px;font-size:10px;font-weight:700;background:'+d.bg+';color:#fff">'+d.belt+'</div>'+(d.stripes?'<div style="font-size:8px;color:#4CAF50;margin-top:3px">'+d.stripes+' stripe'+(d.stripes>1?"s":"")+'</div>':'')+'</div></div>'}).join("")+'</div>'+
 
-function tag(t){const m={GI:"tag-gi","NO GI":"tag-nogi",KIDS:"tag-kids",MMA:"tag-mma",Grappling:"tag-grappling"};return `<span class="tag ${m[t]||'tag-gi'}">${t}</span>`}
-function badge(text,bg,color){return `<span class="badge" style="background:${bg};color:${color}">${text}</span>`}
-function beltBadge(b){return badge("Ceinture "+b.toLowerCase(),BELT_BG[b]||"#111",BELT_C[b]||"#fff")}
-function statBox(n,l){return `<div class="stat-box"><div class="stat-num">${n}</div><div class="stat-label">${l}</div></div>`}
+'<div class="st">Statistiques détaillées</div>'+
+'<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;padding:0 12px">'+stats.map(function(s){return'<div style="background:#1A1A1A;border-radius:8px;padding:10px;text-align:center"><div style="font-size:20px;font-weight:900;color:'+s.color+'">'+s.value+'</div><div style="font-size:9px;color:#888;margin-top:2px">'+s.label+'</div></div>'}).join("")+'</div>'+
 
-function setActiveNav(key){
-document.querySelectorAll('.nav-item').forEach(el=>{el.classList.toggle('active',el.dataset.nav===key)})
+'<div class="st">Palmarès 🏆</div>'+
+'<div style="padding:0 12px">'+palmares.map(function(p,i){return'<div style="display:flex;align-items:center;gap:10px;padding:8px 0;'+(i<palmares.length-1?"border-bottom:1px solid #1A1A1A":"")+'"><div style="font-size:18px;width:28px;text-align:center">'+p.medal+'</div><div style="flex:1"><div style="font-size:12px;font-weight:700;color:#eee">'+p.event+'</div><div style="font-size:10px;color:#888;margin-top:2px">'+p.cat+'</div></div><div style="font-size:10px;color:#888">'+p.date+'</div></div>'}).join("")+'</div>'+
+
+'<div class="st">Profil technique</div>'+
+'<div class="cd" style="font-size:11px">'+[["Jeu de garde",U.gd,"#C9A832",1],["Spécialité",U.sp,"#fff",0],["Soumissions favorites",U.sb,"#fff",0],["Catégorie de poids",U.wt,"#fff",0]].map(function(x){return'<div class="dr"><span style="color:#888">'+x[0]+'</span><span style="color:'+x[2]+';'+(x[3]?'font-weight:700':'')+'">'+x[1]+'</span></div>'}).join("")+'</div>'+
+
+'<div class="st">Parcours clubs</div>'+
+'<div style="padding:0 12px">'+clubs.map(function(c,i){return'<div style="position:relative;padding-left:24px;padding-bottom:'+(i<clubs.length-1?"16":"4")+'px"><div style="position:absolute;left:6px;top:6px;width:10px;height:10px;border-radius:50%;background:'+(c.current?"#B71C1C":"#333")+';border:2px solid '+(c.current?"#B71C1C":"#555")+'"></div>'+(i<clubs.length-1?'<div style="position:absolute;left:10px;top:18px;width:2px;height:calc(100% - 14px);background:#222"></div>':'')+'<div style="background:#1A1A1A;border-radius:10px;padding:10px 12px"><div style="display:flex;justify-content:space-between;align-items:flex-start"><div><div style="font-size:13px;font-weight:700;color:#fff">'+c.name+'</div><div style="font-size:10px;color:#888;margin-top:2px">'+c.role+' · '+c.disciplines+'</div><div style="font-size:10px;color:#888;margin-top:1px">Prof. '+c.prof+' · '+c.fed+'</div></div><div style="text-align:right"><div style="font-size:10px;color:'+(c.current?"#4CAF50":"#888")+';font-weight:700">'+c.period+'</div>'+(c.current?'<div style="font-size:8px;background:#1A2A1A;color:#4CAF50;padding:2px 5px;border-radius:3px;margin-top:3px;display:inline-block">ACTUEL</div>':'')+'</div></div></div></div>'}).join("")+'</div>'+
+
+'<div class="st">Derniers résultats</div>'+
+'<div style="padding:0 12px;font-size:11px">'+RS.map(function(r,i){return'<div style="display:flex;justify-content:space-between;padding:5px 0;'+(i<RS.length-1?'border-bottom:1px solid #1A1A1A':'')+'"><span style="color:'+(r.r==="W"?"#4CAF50":"#B71C1C")+';font-weight:900;width:16px">'+r.r+'</span><span style="color:#eee;flex:1;margin-left:8px">'+r.e+'</span><span style="color:#888;font-size:10px">'+r.d+'</span></div>'}).join("")+'</div>'+
+
+'<div style="padding:12px;margin-top:4px"><div style="background:#222;border:1px solid #444;border-radius:10px;padding:12px;text-align:center;cursor:pointer"><div style="font-size:12px;font-weight:700;color:#fff">🔗 Copier le lien de mon profil public</div><div style="font-size:9px;color:#888;margin-top:4px">nextfightxp.com/p/maxime.bjj</div></div></div>'
 }
 
-function navigate(s){currentScreen=s;selectedCoach=null;selectedComp=null;render()}
-function showCoach(id){selectedCoach=COACHES.find(c=>c.id===id);currentScreen="coachDetail";render()}
-function showComp(id){selectedComp=COMPS.find(c=>c.id===id);currentScreen="compDetail";render()}
-function goBook(){currentScreen="booking";render()}
-function goConfirm(){currentScreen="confirmed";render()}
-function goBack(){
-if(currentScreen==="confirmed"||currentScreen==="booking"){currentScreen="coachDetail";render();return}
-if(currentScreen==="coachDetail"&&selectedComp){currentScreen="compDetail";render();return}
-if(currentScreen==="coachDetail"){currentScreen="coaches";render();return}
-if(currentScreen==="compDetail"){currentScreen="competitions";render();return}
-navigate("home")
-}
+function rCoach(){var ds=["Toutes","JJB GI","JJB NO GI","MMA","Grappling"];var fl=CO.filter(function(c){var ms=!csrc||c.n.toLowerCase().indexOf(csrc.toLowerCase())>=0||c.c.toLowerCase().indexOf(csrc.toLowerCase())>=0;var md=cdf==="Toutes"||c.sp.indexOf(cdf)>=0;return ms&&md});return'<div style="padding:10px 14px"><div style="font-size:18px;font-weight:900;color:#fff">Trouver un <span style="color:#B71C1C">coach</span></div><input class="si" placeholder="🔍 Nom, ville..." value="'+csrc+'" oninput="csrc=this.value;R()"><div style="margin-top:8px">'+ds.map(function(d){return'<span class="fp '+(cdf===d?"fa":"fi")+'" onclick="cdf=\''+d+'\';R()">'+d+'</span>'}).join("")+'</div></div><div style="padding:0 12px">'+fl.map(function(c){return'<div class="sc" style="cursor:pointer" onclick="sc=CO.find(function(x){return x.id==='+c.id+'});cs=\'cd\';R()"><div class="av" style="width:44px;height:44px;background:#222;color:#C9A832;font-size:14px;border:2px solid #C9A832">'+c.i+'</div><div style="flex:1"><div style="font-size:13px;font-weight:700;color:#fff">'+c.n+'</div><div style="font-size:10px;color:#888">'+c.c+' · ★ '+c.r+' · '+c.s+' sessions</div><div style="margin-top:4px">'+c.sp.slice(0,3).map(tg).join("")+'</div></div><div style="text-align:center">'+bb(c.b)+(c.av?'<div style="font-size:8px;color:#4CAF50;font-weight:700;margin-top:4px">Dispo</div>':'')+'</div></div>'}).join("")+'</div>'}
 
-function renderHome(){
-return `
-<div style="padding:8px 14px;display:flex;align-items:center;justify-content:space-between">
-<div><div style="font-size:20px;font-weight:900;color:#fff">Next Fight <span style="color:#B71C1C">XP</span></div><div style="font-size:11px;color:#888">Salut ${USER.name.split(" ")[0]} — prêt à combattre ?</div></div>
-<div class="avatar" style="width:36px;height:36px;background:#B71C1C;color:#fff;font-size:13px">${USER.ini}</div>
-</div>
-<div class="stat-row">${statBox(USER.combats,"Combats")}${statBox(USER.wins+"-"+USER.losses,"W / L")}${statBox(USER.subs,"Sub.")}${statBox("#"+USER.rank,"Rank")}</div>
-<div class="section-title">Prochaine compétition</div>
-<div class="card" onclick="showComp(1)" style="cursor:pointer">
-<div style="display:flex;justify-content:space-between"><div><div style="font-size:14px;font-weight:900;color:#fff">${COMPS[0].name}</div><div style="font-size:10px;color:#888;margin-top:2px">${COMPS[0].date} · ${COMPS[0].venue}</div><div style="margin-top:6px">${COMPS[0].tags.map(tag).join("")}</div></div><div style="background:#B71C1C;color:#fff;border-radius:8px;padding:6px 10px;font-size:10px;font-weight:700;height:fit-content">INSCRIT</div></div>
-<div style="margin-top:10px;padding-top:8px;border-top:1px solid #333;display:flex;align-items:center;gap:8px;cursor:pointer" onclick="event.stopPropagation();showCoach(1)">
-<div class="avatar" style="width:28px;height:28px;background:#222;color:#C9A832;font-size:10px;border:1px solid #C9A832">CT</div>
-<div><div style="font-size:10px;color:#C9A832;font-weight:700">Coach : Carlos Tavares</div><div style="font-size:9px;color:#888">★ 4.9 · 87 sessions · Ceinture noire</div></div></div>
-</div>
-<div class="section-title">Trouver un coach</div>
-<div class="card" style="display:flex;align-items:center;gap:10px;cursor:pointer" onclick="navigate('coaches')">
-<div style="flex:1;background:#222;border-radius:8px;padding:8px 10px;font-size:11px;color:#666">🔍 Ville, compétition, discipline...</div>
-<div style="background:#B71C1C;border-radius:8px;padding:8px 12px;font-size:11px;font-weight:900;color:#fff">50€</div>
-</div>
-<div class="section-title">Compétitions à venir</div>
-<div style="padding:0 12px">${COMPS.slice(0,3).map(c=>`
-<div class="comp-row" onclick="showComp(${c.id})"><div class="comp-date"><div class="comp-day">${c.day}</div><div class="comp-month">${c.month}</div></div><div style="flex:1"><div class="comp-name">${c.name}</div><div class="comp-loc">${c.city} · ${c.fed}</div></div>${c.tags.map(tag).join("")}</div>
-`).join("")}</div>`;
-}
+function rCD(){if(!sc)return"";return'<div style="font-size:12px;color:#B71C1C;cursor:pointer;font-weight:700;padding:4px 14px" onclick="gBk()">← Retour</div><div class="ph gg"><div class="pa" style="border:3px solid #C9A832;color:#C9A832">'+sc.i+'</div></div><div style="padding-top:30px;text-align:center"><div style="font-size:18px;font-weight:900;color:#fff">'+sc.n+'</div><div style="font-size:11px;color:#888">Coach NF XP · '+sc.c+'</div><div style="margin-top:6px">'+bb(sc.b)+bd("★ "+sc.r,"#2A2A1A","#C9A832")+(sc.av?bd("PRO","#1A2A1A","#4CAF50"):"")+'</div></div><div class="sr" style="margin-top:10px">'+sbx(sc.s,"Sessions")+sbx(sc.f,"Combattants")+sbx(sc.w+"%","Win rate")+'</div><div class="st">Spécialités</div><div class="cd"><div style="display:flex;flex-wrap:wrap;gap:4px">'+sc.sp.map(tg).join("")+'</div><div class="dr" style="margin-top:8px"><span style="color:#888">Approche</span><span style="color:#fff">'+sc.ap+'</span></div><div class="dr"><span style="color:#888">Disponibilité</span><span style="color:'+(sc.av?"#4CAF50":"#B71C1C")+';font-weight:700">'+(sc.av?"Disponible":"Indisponible")+'</span></div></div><div style="padding:12px"><div class="bt bo" onclick="cs=\'bk\';R()">Réserver '+sc.n.split(" ")[0]+' · 50€</div></div>'}
 
-function renderCompetitions(){
-const filtered=compFilter==="Toutes"?COMPS:COMPS.filter(c=>c.tags.includes(compFilter==="NO GI"?"NO GI":compFilter.toUpperCase()));
-const filters=["Toutes","GI","NO GI","Kids","IBJJF"];
-return `
-<div style="padding:10px 14px"><div style="font-size:18px;font-weight:900;color:#fff">Compétitions <span style="color:#B71C1C">JJB</span></div>
-<div style="margin-top:8px">${filters.map(f=>`<span class="filter-pill ${compFilter===f?'active':'inactive'}" onclick="compFilter='${f}';render()">${f}</span>`).join("")}</div></div>
-<div style="padding:0 12px">${filtered.map(c=>`
-<div class="comp-row" onclick="showComp(${c.id})"><div class="comp-date"><div class="comp-day">${c.day}</div><div class="comp-month">${c.month}</div></div><div style="flex:1"><div class="comp-name">${c.name}</div><div class="comp-loc">${c.venue}, ${c.city}</div></div><div style="display:flex;flex-direction:column;gap:2px">${c.tags.map(tag).join("")}</div></div>
-`).join("")}</div>`;
-}
+function rCpD(){if(!scp)return"";var lo=CO.filter(function(c){return c.av}).slice(0,5);return'<div style="font-size:12px;color:#B71C1C;cursor:pointer;font-weight:700;padding:4px 14px" onclick="gBk()">← Retour</div><div style="padding:8px 14px"><div style="font-size:20px;font-weight:900;color:#fff">'+scp.n+'</div><div style="font-size:12px;color:#888;margin-top:2px">'+scp.d+'</div><div style="font-size:12px;color:#888">'+scp.v+', '+scp.c+'</div><div style="margin-top:8px">'+scp.t.map(tg).join("")+'</div><div style="margin-top:10px;text-align:center"><span style="font-size:11px;color:#B71C1C;cursor:pointer;text-decoration:underline">S\'inscrire à cette compétition →</span></div></div><div class="st">Réservez votre coach pour cette compétition</div><div style="padding:4px 12px 0"><div style="font-size:11px;color:#888;margin-bottom:10px">'+lo.length+' coachs disponibles à proximité · 50€ / session</div>'+lo.map(function(c){return'<div style="background:#1A1A1A;border-radius:14px;padding:14px;margin-bottom:10px;cursor:pointer;border:1px solid #222" onclick="sc=CO.find(function(x){return x.id==='+c.id+'});cs=\'cd\';R()"><div style="display:flex;align-items:center;gap:12px"><div class="av" style="width:50px;height:50px;background:#111;color:#C9A832;font-size:16px;border:2px solid #C9A832">'+c.i+'</div><div style="flex:1"><div style="font-size:14px;font-weight:700;color:#fff">'+c.n+'</div><div style="font-size:11px;color:#888;margin-top:2px">'+c.c+' · Ceinture '+c.b.toLowerCase()+'</div><div style="display:flex;align-items:center;gap:8px;margin-top:6px"><span style="font-size:12px;color:#C9A832;font-weight:700">★ '+c.r+'</span><span style="font-size:10px;color:#888">'+c.s+' sessions</span><span style="font-size:10px;color:#888">'+c.w+'% win</span></div><div style="margin-top:6px">'+c.sp.slice(0,3).map(tg).join("")+'</div></div><div style="text-align:center"><div style="background:#C9A832;color:#0A0A0A;border-radius:8px;padding:8px 14px;font-size:13px;font-weight:900">50€</div><div style="font-size:8px;color:#4CAF50;margin-top:4px;font-weight:700">'+(c.av?"Disponible":"")+'</div></div></div></div>'}).join("")+'</div>'}
 
-function renderProfile(){
-return `
-<div class="profile-header gradient-red"><div class="profile-avatar" style="border:3px solid #B71C1C">${USER.ini}</div></div>
-<div style="padding-top:30px;text-align:center"><div style="font-size:18px;font-weight:900;color:#fff">${USER.name}</div><div style="font-size:11px;color:#888">${USER.city}, FR</div>
-<div style="margin-top:6px">${badge("Ceinture violette",BELT_BG.Violette,"#fff")}${badge(USER.stripes+" stripes","#1A2A1A","#4CAF50")}</div></div>
-<div class="stat-row" style="margin-top:10px">${statBox(USER.combats,"Combats")}${statBox(Math.round(USER.wins/USER.combats*100)+"%","Victoires")}${statBox(Math.round(USER.subs/USER.combats*100)+"%","Sub.")}</div>
-<div class="section-title">Profil technique</div>
-<div class="card" style="font-size:11px">
-${[["Jeu de garde",USER.guard,"#C9A832",true],["Spécialité",USER.specialty,"#fff",false],["Soumissions",USER.submissions,"#fff",false],["Catégorie",USER.weight,"#fff",false],["Disciplines",USER.disciplines,"#fff",false]].map(([l,v,c,b])=>`<div class="detail-row"><span class="detail-label">${l}</span><span style="color:${c};${b?'font-weight:700':''}">${v}</span></div>`).join("")}
-</div>
-<div class="section-title">Club</div>
-<div class="card" style="display:flex;align-items:center;gap:10px">
-<div class="avatar" style="width:32px;height:32px;background:#222;color:#B71C1C;font-size:10px;border:1px solid #333">TFC</div>
-<div><div style="font-size:12px;font-weight:700;color:#fff">${USER.club}</div><div style="font-size:9px;color:#888">Affilié CFJJB · Prof. ${USER.prof}</div></div></div>
-<div class="section-title">Derniers résultats</div>
-<div style="padding:0 12px;font-size:11px">${RESULTS.map((r,i)=>`<div class="result-row" style="${i<RESULTS.length-1?'border-bottom:1px solid #1A1A1A':''}"><span style="color:${r.r==="W"?"#4CAF50":"#B71C1C"};font-weight:900;width:16px">${r.r}</span><span style="color:#eee;flex:1;margin-left:8px">${r.e}</span><span style="color:#888;font-size:10px">${r.d}</span></div>`).join("")}</div>`;
-}
+function rBk(){if(!sc)return"";return'<div style="font-size:12px;color:#B71C1C;cursor:pointer;font-weight:700;padding:4px 14px" onclick="gBk()">← Retour</div><div style="padding:20px 14px;text-align:center"><div style="font-size:16px;font-weight:900;color:#fff">Réserver '+sc.n+'</div><div class="cd" style="margin:20px 12px;text-align:left"><div style="font-size:11px;color:#888;margin-bottom:4px">Compétition</div><div style="font-size:13px;font-weight:700;color:#fff">Open de Grenoble — 8 mars 2026</div><div style="font-size:11px;color:#888;margin-top:12px;margin-bottom:4px">Coach</div><div style="font-size:13px;font-weight:700;color:#C9A832">'+sc.n+' · ★ '+sc.r+'</div><div style="font-size:11px;color:#888;margin-top:12px;margin-bottom:4px">Tarif</div><div style="display:flex;justify-content:space-between;align-items:baseline"><div style="font-size:28px;font-weight:900;color:#B71C1C">50€</div><div style="font-size:10px;color:#888">40€ coach · 10€ plateforme</div></div></div><div style="font-size:10px;color:#888;margin-bottom:12px">Paiement sécurisé Stripe</div><div class="bt bo" onclick="cs=\'cf\';R()">Confirmer & Payer 50€</div></div>'}
 
-function renderCoaches(){
-const discs=["Toutes","JJB GI","JJB NO GI","MMA","Grappling"];
-const filtered=COACHES.filter(c=>{
-const ms=!coachSearch||c.name.toLowerCase().includes(coachSearch.toLowerCase())||c.city.toLowerCase().includes(coachSearch.toLowerCase());
-const md=coachDisc==="Toutes"||c.specs.includes(coachDisc);
-return ms&&md});
-return `
-<div style="padding:10px 14px"><div style="font-size:18px;font-weight:900;color:#fff">Trouver un <span style="color:#B71C1C">coach</span></div>
-<input class="search-input" placeholder="🔍 Nom, ville..." value="${coachSearch}" oninput="coachSearch=this.value;render()">
-<div style="margin-top:8px">${discs.map(d=>`<span class="filter-pill ${coachDisc===d?'active':'inactive'}" onclick="coachDisc='${d}';render()">${d}</span>`).join("")}</div></div>
-<div style="padding:0 12px">${filtered.map(c=>`
-<div class="coach-card" onclick="showCoach(${c.id})"><div style="display:flex;align-items:center;gap:10px">
-<div class="avatar" style="width:44px;height:44px;background:#222;color:#C9A832;font-size:14px;border:2px solid #C9A832">${c.ini}</div>
-<div style="flex:1"><div style="font-size:13px;font-weight:700;color:#fff">${c.name}</div><div style="font-size:10px;color:#888">${c.city} · ★ ${c.rating} · ${c.sessions} sessions</div><div style="margin-top:4px">${c.specs.slice(0,3).map(tag).join("")}</div></div>
-<div style="text-align:center">${beltBadge(c.belt)}${c.available?'<div style="font-size:8px;color:#4CAF50;font-weight:700;margin-top:4px">Disponible</div>':''}</div>
-</div></div>`).join("")}</div>`;
-}
+function rCf(){if(!sc)return"";return'<div style="padding:60px 14px;text-align:center"><div style="font-size:48px;margin-bottom:16px">✅</div><div style="font-size:20px;font-weight:900;color:#4CAF50">Réservation confirmée !</div><div style="font-size:12px;color:#888;margin-top:8px">'+sc.n+' vous accompagnera à l\'Open de Grenoble le 8 mars.</div><div class="cd" style="margin:24px 12px;text-align:left">'+[["Réf.","NF-2026-0847","#fff"],["Coach",sc.n,"#C9A832"],["Compét.","Open de Grenoble","#fff"],["Montant","50€","#B71C1C"]].map(function(x){return'<div class="dr"><span style="color:#888">'+x[0]+'</span><span style="color:'+x[2]+';font-weight:700">'+x[1]+'</span></div>'}).join("")+'</div><div class="bt br" onclick="go(\'home\')">Retour à l\'accueil</div></div>'}
 
-function renderCoachDetail(){
-const c=selectedCoach;if(!c)return"";
-return `
-<div class="back-link" onclick="goBack()">← Retour</div>
-<div class="profile-header gradient-gold"><div class="profile-avatar" style="border:3px solid #C9A832;color:#C9A832">${c.ini}</div></div>
-<div style="padding-top:30px;text-align:center"><div style="font-size:18px;font-weight:900;color:#fff">${c.name}</div><div style="font-size:11px;color:#888">Coach certifié NF XP · ${c.city}</div>
-<div style="margin-top:6px">${beltBadge(c.belt)}${badge("★ "+c.rating,"#2A2A1A","#C9A832")}${c.available?badge("PRO","#1A2A1A","#4CAF50"):""}</div></div>
-<div class="stat-row" style="margin-top:10px">${statBox(c.sessions,"Sessions")}${statBox(c.fighters,"Combattants")}${statBox(c.winRate+"%","Win rate")}</div>
-<div class="section-title">Spécialités</div>
-<div class="card"><div style="display:flex;flex-wrap:wrap;gap:4px">${c.specs.map(tag).join("")}</div>
-<div class="detail-row" style="margin-top:8px"><span class="detail-label">Approche</span><span class="detail-value">${c.approach}</span></div>
-<div class="detail-row"><span class="detail-label">Disponibilité</span><span style="color:${c.available?"#4CAF50":"#B71C1C"};font-weight:700">${c.available?"Disponible":"Indisponible"}</span></div></div>
-<div style="padding:12px"><div class="btn-gold" onclick="goBook()">Réserver ${c.name.split(" ")[0]} · 50€ / session</div></div>`;
-}
-
-function renderCompDetail(){
-const c=selectedComp;if(!c)return"";
-const local=COACHES.filter(co=>co.available).slice(0,3);
-return `
-<div class="back-link" onclick="goBack()">← Retour</div>
-<div style="padding:8px 14px"><div style="font-size:20px;font-weight:900;color:#fff">${c.name}</div><div style="font-size:12px;color:#888;margin-top:2px">${c.date}</div><div style="font-size:12px;color:#888">${c.venue}, ${c.city}</div>
-<div style="margin-top:8px">${c.tags.map(tag).join("")}</div><div style="margin-top:4px">${badge(c.fed,"#222","#C9A832")}</div></div>
-<div style="padding:10px 12px"><div class="btn-primary">S'inscrire à cette compétition</div></div>
-<div class="section-title">Coachs disponibles</div>
-<div style="padding:0 12px">${local.map(co=>`
-<div class="coach-card" onclick="selectedComp=COMPS.find(x=>x.id===${c.id});showCoach(${co.id})" style="display:flex;align-items:center;gap:10px">
-<div class="avatar" style="width:36px;height:36px;background:#222;color:#C9A832;font-size:12px;border:1px solid #C9A832">${co.ini}</div>
-<div style="flex:1"><div style="font-size:12px;font-weight:700;color:#fff">${co.name}</div><div style="font-size:10px;color:#888">${co.city} · ★ ${co.rating} · ${co.specs[0]}</div></div>
-<div style="background:#C9A832;color:#0A0A0A;border-radius:6px;padding:4px 8px;font-size:10px;font-weight:900">50€</div>
-</div>`).join("")}</div>`;
-}
-
-function renderBooking(){
-const c=selectedCoach;if(!c)return"";
-return `
-<div class="back-link" onclick="goBack()">← Retour</div>
-<div style="padding:20px 14px;text-align:center">
-<div style="font-size:16px;font-weight:900;color:#fff">Réserver ${c.name}</div>
-<div style="font-size:12px;color:#888;margin-top:4px">Pour votre prochaine compétition</div>
-<div class="card" style="margin:20px 12px;text-align:left">
-<div style="font-size:11px;color:#888;margin-bottom:4px">Compétition</div><div style="font-size:13px;font-weight:700;color:#fff">Open de Grenoble — 8 mars 2026</div>
-<div style="font-size:11px;color:#888;margin-top:12px;margin-bottom:4px">Coach</div><div style="font-size:13px;font-weight:700;color:#C9A832">${c.name} · ★ ${c.rating}</div>
-<div style="font-size:11px;color:#888;margin-top:12px;margin-bottom:4px">Tarif</div>
-<div style="display:flex;justify-content:space-between;align-items:baseline"><div style="font-size:28px;font-weight:900;color:#B71C1C">50€</div><div style="font-size:10px;color:#888">40€ coach · 10€ plateforme</div></div>
-</div>
-<div style="font-size:10px;color:#888;margin-bottom:12px">Paiement sécurisé par Stripe · Versement coach sous 48h</div>
-<div class="btn-gold" onclick="goConfirm()">Confirmer & Payer 50€</div></div>`;
-}
-
-function renderConfirmed(){
-const c=selectedCoach;if(!c)return"";
-return `
-<div style="padding:60px 14px;text-align:center">
-<div style="font-size:48px;margin-bottom:16px">✅</div>
-<div style="font-size:20px;font-weight:900;color:#4CAF50">Réservation confirmée !</div>
-<div style="font-size:12px;color:#888;margin-top:8px">${c.name} a été notifié et vous accompagnera à l'Open de Grenoble le 8 mars.</div>
-<div class="card" style="margin:24px 12px;text-align:left">
-${[["Référence","NF-2026-0847","#fff"],["Coach",c.name,"#C9A832"],["Compétition","Open de Grenoble","#fff"],["Montant","50€","#B71C1C"]].map(([l,v,c])=>`<div class="detail-row"><span class="detail-label">${l}</span><span style="color:${c};font-weight:700">${v}</span></div>`).join("")}
-</div>
-<div class="btn-primary" onclick="navigate('home')">Retour à l'accueil</div></div>`;
-}
-
-function render(){
-const s=document.getElementById("screen");
-let html="";
-if(currentScreen==="home")html=renderHome();
-else if(currentScreen==="competitions")html=renderCompetitions();
-else if(currentScreen==="profile")html=renderProfile();
-else if(currentScreen==="coaches")html=renderCoaches();
-else if(currentScreen==="coachDetail")html=renderCoachDetail();
-else if(currentScreen==="compDetail")html=renderCompDetail();
-else if(currentScreen==="booking")html=renderBooking();
-else if(currentScreen==="confirmed")html=renderConfirmed();
-s.innerHTML=html+'<div class="spacer"></div>';
-s.scrollTop=0;
-
-const navMap={home:"home",competitions:"competitions",profile:"profile",coaches:"coaches",coachDetail:"coaches",compDetail:"competitions",booking:"coaches",confirmed:"home"};
-setActiveNav(navMap[currentScreen]||"home");
-}
-
-render();
-</script>
-</body>
-</html>
+function R(){var s=document.getElementById("scr"),h="";
+if(cs==="home")h=rHome();else if(cs==="comp")h=rComp();else if(cs==="spar")h=rSpar();else if(cs==="spd")h=rSpD();else if(cs==="health")h=rHealth();else if(cs==="prof")h=rProf();else if(cs==="coach")h=rCoach();else if(cs==="cd")h=rCD();else if(cs==="cpd")h=rCpD();else if(cs==="bk")h=rBk();else if(cs==="cf")h=rCf();
+s.innerHTML=h+'<div style="height:20px"></div>';s.scrollTop=0;
+var nm={home:"home",comp:"comp",spar:"spar",spd:"spar",health:"health",prof:"prof",coach:"home",cd:"home",cpd:"comp",bk:"home",cf:"home"};
+sn(nm[cs]||"home")}
+R();
+</script></body></html>
